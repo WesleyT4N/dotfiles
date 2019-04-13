@@ -1,0 +1,6 @@
+.vscode/
+.ctags
+.DS_STORE
+tags
+.pyc
+__pycache__/
