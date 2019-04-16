@@ -21,8 +21,9 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular', { 'for': ['tex', 'markdown'] }
+Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
 let g:vimtex_view_method = 'skim'
@@ -44,9 +45,9 @@ map <leader>s :source ~/.vimrc<CR>
 set hidden
 set history=100
 set nowrap
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set expandtab
 set smartindent
 set autoindent
@@ -104,10 +105,17 @@ au BufNewFile,BufRead *.gql.js set filetype=graphql
             \ softtabstop=4
             \ shiftwidth=4
 
-au BufNewFile,BufRead *.tex, *.md set tabstop=2
+au BufNewFile,BufRead *.tex set tabstop=2
             \ softtabstop=2
             \ shiftwidth=2
             \ colorcolumn=80
+            \ textwidth=80
+
+autocmd Filetype markdown setlocal tabstop=2
+            \ softtabstop=2
+            \ shiftwidth=2
+            \ colorcolumn=80
+            \ textwidth=80
 
 " Indent shortcuts
 " for command mode
@@ -293,3 +301,8 @@ nnoremap <leader>c  :<C-u>CocList commands<cr>
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_new_list_item_indent = 2
 
+" vim-IndentLine
+let g:indentLine_char = '│'
+let g:indentLine_faster = 1
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceChar = '·'
