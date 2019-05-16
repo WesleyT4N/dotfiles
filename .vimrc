@@ -12,6 +12,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
+Plug 'jparise/vim-graphql'
 Plug 'mhinz/vim-sayonara'
 Plug 'vimlab/split-term.vim'
 Plug 'lervag/vimtex', { 'for': ['tex'] }
@@ -32,6 +33,7 @@ colorscheme one
 set showtabline=4
 if has('gui_running')
     set guioptions=
+    set guifont=Iosevka\ Custom\ Nerd\ Font\ Mono:h16
 endif
 set mouse=a
 set termguicolors
@@ -310,8 +312,9 @@ let g:vim_markdown_new_list_item_indent = 2
 let g:vim_markdown_conceal = 0
 
 " vim-IndentLine
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_first_char = '│'
 let g:indentLine_char = '│'
-let g:indentLine_faster = 1
 let g:indentLine_leadingSpaceEnabled = 1
 let g:indentLine_leadingSpaceChar = '·'
 let g:indentLine_fileTypeExclude = ["nerdtree"]
@@ -324,3 +327,12 @@ let g:tagbar_sort = 0
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
+
+" Git guetter
+
+" Faster updatetime so that GitGutter can update instantly
+set updatetime=100
+
+let g:gitgutter_sign_added = '┃'
+let g:gitgutter_sign_modified = '┃'
+let g:gitgutter_sign_removed = '┃'
