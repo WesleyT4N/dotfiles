@@ -62,8 +62,8 @@ chunkc set window_focus_cycle            monitor
 chunkc set window_float_next             0
 chunkc set window_region_locked          1
 
-chunkc set chunkc set window_mouse_move fn
-chunkc set mouse_resize_window           alt
+chunkc set chunkc set window_mouse_move  fn
+chunkc set mouse_resize_window           cntrl
 chunkc set mouse_motion_interval         35
 
 chunkc set preselect_border_color        0xfffafafa
