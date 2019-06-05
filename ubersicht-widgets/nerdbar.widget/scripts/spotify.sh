@@ -14,10 +14,10 @@ IFS='|' read -r theArtist theName theState theStream <<<"$(osascript <<<'if appl
       set theArtist to artist of current track
       return theArtist & " - " & "<span>" & theTrack & "<span>" & " - paused"
     else
-      return "no song selected"
+      return ""
     end if
   end tell
 else
-  return "Spotify is not running"
+  return ""
 end if')" &&
 echo "$theArtist $theName"

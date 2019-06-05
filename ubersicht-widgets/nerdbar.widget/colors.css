@@ -11,24 +11,3 @@ table, span {
 .background {
     background-color: #ffffff;
 }
-
-.sicon {
-    position: relative;
-    font: 10px 'Font Awesome 5 Free';
-}
-.icon {
-    position: relative;
-    top: 1px;
-    font: 14px 'Font Awesome 5 Free';
-}
-.weather {
-    font: 16px WeatherIcons-Regular;
-    position: relative;
-    top: 2px;
-}
-
-.grey {
-    color: #f1eff8;
-}
-
-
