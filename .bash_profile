@@ -1,4 +1,4 @@
-export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+export PS1="\[$(tput bold)\]\[\033[38;5;7m\]\[\033[48;5;0m\] \u@\h \[$(tput sgr0)\]\[\033[38;5;15m\]\[\033[48;5;4m\] \w \[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[48;5;-1m\] \[$(tput sgr0)\]"
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 alias ..="cd .."
