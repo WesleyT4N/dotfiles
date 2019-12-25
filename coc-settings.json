@@ -1,0 +1,10 @@
+{
+   // "python.jediEnabled": false,
+    "suggest.triggerAfterInsertEnter": true,
+    "suggest.enablePreview": true,
+    "highlight.colors.enable": false,
+    "coc.preferences.hoverTarget": "float",
+    "java.autobuild.enabled": true,
+    "suggest.noselect": true,
+    "diagnostic.errorSign": "!"
+}
