@@ -1,6 +1,6 @@
 command: "sh nerdbar.widget/scripts/status.sh"
 
-refreshFrequency: 3000 # ms
+refreshFrequency: 10000 # ms
 
 render: (output) ->
   """
@@ -10,8 +10,8 @@ render: (output) ->
 
 style: """
   right: 8px
-  top: 4px
-  height: 13
+  top: 2px
+  height: 12
   """
 
 netName: (netName) ->
@@ -31,6 +31,8 @@ batteryStatus: (battery, state) ->
 
 spotify: (output) ->
   if output.trim() != ""
+    if output.length > 100
+      output = output.slice(0, 100) + "..."
     return "<span class='white'>#{output}</span>"
   return ""
 

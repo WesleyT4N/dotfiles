@@ -12,7 +12,7 @@ IFS='|' read -r theArtist theName theState theStream <<<"$(osascript <<<'if appl
     else if player state is paused then
       set theTrack to name of current track
       set theArtist to artist of current track
-      return theArtist & " - " & "<span>" & theTrack & "<span>" & " - paused"
+      return "(paused) - " & theArtist & " - " & "<span>" & theTrack & "<span>"
     else
       return ""
     end if

@@ -1,0 +1,13 @@
+[user]
+	name = Wes T4N
+	email = wesleyt1998@gmail.com
+[diff]
+	tool = vimdiff
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	editor = nvim
+	excludesfile = /Users/wesleyt/.gitignore_global
