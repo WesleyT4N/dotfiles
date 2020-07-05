@@ -1,4 +1,4 @@
-[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
+# [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 alias grep="grep -Hn --color=auto"
@@ -75,8 +75,6 @@ unset __conda_setup
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export PATH="/usr/local/opt/ruby/bin:$PATH"
-
-
 
 git_dirty (){
     [[ $(git status --porcelain 2> /dev/null) ]] && echo " *"
