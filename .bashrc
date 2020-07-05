@@ -1,3 +1,4 @@
+[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 alias grep="grep -Hn --color=auto"
