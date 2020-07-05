@@ -1,127 +1,78 @@
-# Source global definitions
-if [[ -f /etc/bashrc ]]; then
-    . /etc/bashrc
-fi
+export LSCOLORS=ExFxBxDxCxegedabagacad
 
-# If ssh session, include hostname in prompt
-if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
-    export PS1="\[\033[36m\]\u\[\033[1;31m\]@\[\033[0;32m\]\h\[\033[m\]:\[\033[33m\]\w\[\033[m\]> "
-else
-    export PS1="\[\033[36m\]\u\[\033[1;31m\]\[\033[m\]:\[\033[33m\]\w\[\033[m\]> "
-fi
-export CLICOLOR=1
-
-# OS Specific Aliases
-OS=$(uname)
-case "$OS" in
-    'Darwin')
-        export LSCOLORS='FxFxBxDxCxegedabagacad'
-        alias ls='ls -FhG'
-        ;;
-    'Linux')
-        export LS_COLORS='di=1;35;40:ln=1;35;40:so=1;31;40:pi=1;33;40:ex=1;32;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:'
-        alias ls='ls -Fh --color=always'
-
-        # Regular open doesn't do what we want; xdg-open *should* exist on all Linux platforms.
-        # This is a "function", which we will cover later with scripting.
-        #
-        #     - The $@ says "take ALL inputs", allowing for say `open *.txt`
-        #     - The &> is a shorthand for 2>&1 for bash 4.0+
-        #         - We are sending it to /dev/null because we don't care what it has to say (usually)...
-        open () {
-            xdg-open "$@" &>/dev/null
-        }
-
-        # I want to be able to run vlc from the commandline without any output, and let it keep running after
-        # I close my terminal (nohup).
-        #
-        # Of course...you have to have vlc installed.
-        # vlc () {
-        #     nohup "$(which vlc)" "$@" &>/dev/null &
-        # }
-        ;;
-    *)
-        echo "Unknown OS: $OS"
-        ;;
-esac
-
-# Navigational convenience
-alias l="ls -al"
-alias ..="cd .."
-alias cd..="cd .."
-alias c="clear"
-alias back="cd - > /dev/null"
-
-# Power.  MUCH better looking grep.
 alias grep="grep -Hn --color=auto"
 alias egrep="egrep -Hn --color=auto"
 alias pgrep="pgrep -Hn --color=auto"
 
-# My root and user bashrc files are linked to be the same.  This makes sure that the
-# root rm / cp / mv commands are prompting.
-if [[ $(id -u) -eq 0 ]]; then
-    alias rm='rm -i'
-    alias cp='cp -i'
-    alias mv='mv -i'
-fi
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-#
-# Thank you: http://madebynathan.com/2011/10/04/a-nicer-way-to-use-xclip/
-#
-# A shortcut function that simplifies usage of xclip.
-# - Accepts input from either stdin (pipe), or params.
-# ------------------------------------------------
-#
-# Note: I changed my alias to 'clip', which is different from the original.
-cb() {
-  local _scs_col="\e[0;32m"; local _wrn_col='\e[1;31m'; local _trn_col='\e[0;33m'
-  # Check that xclip is installed.
-  if ! type xclip > /dev/null 2>&1; then
-    echo -e "$_wrn_col""You must have the 'xclip' program installed.\e[0m"
-  # Check user is not root (root doesn't have access to user xorg server)
-  elif [[ "$USER" == "root" ]]; then
-    echo -e "$_wrn_col""Must be regular user (not root) to copy a file to the clipboard.\e[0m"
-  else
-    # If no tty, data should be available on stdin
-    if ! [[ "$( tty )" == /dev/* ]]; then
-      input="$(< /dev/stdin)"
-    # Else, fetch input from params
-    else
-      input="$*"
-    fi
-    if [ -z "$input" ]; then  # If no input, print usage message.
-      echo "Copies a string to the clipboard."
-      echo "Usage: cb <string>"
-      echo "       echo <string> | cb"
-    else
-      # Copy input to clipboard
-      echo -n "$input" | xclip -selection c
-      # Truncate text for status
-      if [ ${#input} -gt 80 ]; then input="$(echo $input | cut -c1-80)$_trn_col...\e[0m"; fi
-      # Print status.
-      echo -e "$_scs_col""Copied to clipboard:\e[0m $input"
-    fi
-  fi
-}
-# Aliases / functions leveraging the cb() function
-# ------------------------------------------------
-# Copy contents of a file
-function clip() { cat "$1" | cb; }
-# Copy SSH public key
-alias clipssh="clip ~/.ssh/id_rsa.pub"
-# Copy current working directory
-alias clipwd="pwd | cb"
-# Copy most recent command in bash history
-alias cliphs="cat $HISTFILE | tail -n 1 | cb"
+alias ..="cd .."
+alias ls='gls --group-directories-first -pa --color=tty'
+alias vim="nvim"
+alias c="clear"
+alias gs="git status"
+alias gco="git checkout"
+alias ga="git add"
+alias gc="git commit"
+alias gb="git branch"
+alias t="tmux"
+alias sshcornell="ssh wt237@ugclinux.cs.cornell.edu"
+alias junit="java -ea -jar /Users/wes-tan/Documents/Github/CS-4321-Projects/cs5321_practicum/lib/junit-platform-console-standalone-1.5.0.jar -cp /Users/wes-tan/Documents/Github/CS-4321-Projects/cs5321_practicum/bin:/Users/wes-tan/Documents/Github/CS-4321-Projects/cs5321_practicum/JSqlParser/jsqlparser/jsqlparser.jar"
 
-# Open vim using sepearate window
+
+export PATH=/usr/local/bin:$PATH
+# export PATH="/Users/wes-tan/anaconda3/bin:$PATH"  # commented out by conda initialize  # commented out by conda initialize
+# alias python="/usr/local/bin/python3"
+# alias pip="/usr/local/bin/pip3"
+alias compmd="for f in *.md; do pandoc "$f" -s -o "./compiled/${f%.md}.pdf" -V geometry:margin=1in; done"
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source $HOME/.bash_profile
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+# added by Anaconda3 2019.10 installer
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$(CONDA_REPORT_ERRORS=false '/opt/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    \eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+# . "/opt/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
+        CONDA_CHANGEPS1=false conda activate base
+    else
+        \export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda init <<<
+
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+export PS1="\[$(tput bold)\]\[\033[38;5;7m\]\[\033[48;5;0m\] \u@\h \[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;15m\]\[\033[48;5;4m\] \w \[$(tput sgr0)\]\n\[\033[38;5;255m\]\[\033[48;5;0m\]\[$(tput bold)\] $ \[$(tput sgr0)\] " export CLICOLOR=1
